@@ -10,7 +10,7 @@ export class ProductDto {
   totalAmount: number = 0;
   amountSold: number = 0;
   quantitySold: number = 0;
-  quantityLeft: number = 0;
+  quantityLeft: number | undefined = 0;
 }
 
 

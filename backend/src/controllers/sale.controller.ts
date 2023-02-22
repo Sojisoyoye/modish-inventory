@@ -1,5 +1,6 @@
 import { Sale } from "../entities";
 import {
+  getProduct,
   getProductByNameSizeAndFaced,
   updateProduct,
 } from "../repositories/product";
@@ -35,7 +36,12 @@ class SaleController {
 
         const productQuantitySold = product.quantitySold + req.body.quantity;
 
-        const productQuantityLeft = product.quantityLeft - req.body.quantity;
+        let productQuantityLeft;
+        if (product.quantityLeft === 0) {
+          productQuantityLeft = product.quantity - req.body.quantity;
+        } else {
+          productQuantityLeft = product.quantityLeft - req.body.quantity;
+        }
 
         await updateProduct(product.id, {
           ...product,
@@ -69,6 +75,7 @@ class SaleController {
     });
   }
 
+  // leave update sale pending for now
   async updateSale(req: any, res: any): Promise<Sale> {
     let updatedProduct;
     try {
@@ -96,7 +103,8 @@ class SaleController {
               name: req.name,
               faced: req.faced,
               size: req.size,
-              quantitySold: req.body.quantity,
+              amountSold: req.body.amount + product.amountSold,
+              quantitySold: req.body.quantity + product.quantitySold,
               quantityLeft: valueLeft,
             });
           }
@@ -114,7 +122,7 @@ class SaleController {
       }
 
       return res.status(404).json({
-        status: 400,
+        status: 404,
         message: "Sale not found",
       });
     } catch (error) {
@@ -125,14 +133,49 @@ class SaleController {
     }
   }
 
+  // test delete sale
   async deleteSale(req: any, res: any): Promise<any> {
-    const result = await deleteSale(req.params.id);
+    try {
+      const sale = await getSale(req.params.id);
+      if (sale) {
+        const product = await getProductByNameSizeAndFaced(
+          sale.productName,
+          sale.faced,
+          sale.size
+        );
 
-    if (result !== undefined) {
-      return res.status(200).json({
-        status: 200,
-        deleted: req.params.id,
-        message: "Sale deleted succesfully",
+        if (product) {
+          const newProductAmountSold = product.amountSold - sale.amount;
+          const newProductQuantitySold = product.quantitySold - sale.quantity;
+          const newProductQuantityLeft = product.quantityLeft + sale.quantity;
+
+          await updateProduct(product.id, {
+            ...product,
+            amountSold: newProductAmountSold,
+            quantitySold: newProductQuantitySold,
+            quantityLeft: newProductQuantityLeft,
+          });
+
+          const result = await deleteSale(req.params.id);
+
+          if (result !== undefined) {
+            return res.status(200).json({
+              status: 200,
+              deleted: req.params.id,
+              message: "Sale deleted succesfully",
+            });
+          }
+        }
+      } else {
+        return res.status(404).json({
+          status: 404,
+          message: "Sale not found",
+        });
+      }
+    } catch (error) {
+      return res.status(400).json({
+        status: 400,
+        error,
       });
     }
   }

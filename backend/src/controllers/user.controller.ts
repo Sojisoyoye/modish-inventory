@@ -9,11 +9,11 @@ import {
   updateUser,
   loginUser,
 } from "../repositories/user";
-import {
-  comparePassword,
-  generateToken,
-  hashPassword,
-} from "../utils/password";
+// import {
+//   comparePassword,
+//   generateToken,
+//   hashPassword,
+// } from "../utils/password";
 
 class UserController {
   constructor() {
@@ -31,16 +31,14 @@ class UserController {
 
   async createUser(req: any, res: any): Promise<User> {
     try {
-      const hashedPassword = await hashPassword(req.body.password);
-
-      console.log(hashedPassword);
+      // const hashedPassword = await hashPassword(req.body.password);
 
       const newUser = {
         ...req.body,
-        password: hashedPassword,
+        // password: hashedPassword,
       };
 
-      const token = generateToken(newUser.id, newUser.role);
+      // const token = generateToken(newUser.id, newUser.role);
 
       const user = await createUser(newUser);
       return res.status(200).json({
@@ -48,7 +46,7 @@ class UserController {
         message: "User created successful",
         data: [
           {
-            token,
+            // token,
             user,
           },
         ],
@@ -83,17 +81,17 @@ class UserController {
         userName,
       });
     } else {
-      const hashedPassword = await hashPassword(password);
+      // const hashedPassword = await hashPassword(password);
 
       try {
-        const value = await updateUser(userName, hashedPassword);
+        // const value = await updateUser(userName, hashedPassword);
 
-        if (value === 0) {
-          return res.status(400).json({
-            status: 400,
-            message: "Password reset not successful",
-          });
-        }
+        // if (value === 0) {
+        //   return res.status(400).json({
+        //     status: 400,
+        //     message: "Password reset not successful",
+        //   });
+        // }
 
         return res.status(200).json({
           status: 200,
@@ -122,19 +120,19 @@ class UserController {
         });
       }
 
-      if (!comparePassword(user.password, password)) {
-        return res.status(401).json({
-          status: 401,
-          message: "Wrong password, try again",
-        });
-      }
+      // if (!comparePassword(user.password, password)) {
+      //   return res.status(401).json({
+      //     status: 401,
+      //     message: "Wrong password, try again",
+      //   });
+      // }
 
-      const token = generateToken(user.id, user.role);
+      // const token = generateToken(user.id, user.role);
       return res.status(200).json({
         status: 200,
         data: [
           {
-            token,
+            // token,
             user,
           },
         ],

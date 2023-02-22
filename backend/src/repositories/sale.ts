@@ -42,12 +42,14 @@ export const getSale = async (id: number): Promise<Sale | null> => {
   return sale;
 };
 
-export const deleteSale = async (id: number): Promise<number | undefined> => {
+export const deleteSale = async (
+  id: number
+): Promise<number | undefined | null> => {
   const saleRepository = config.getRepository(Sale);
-  const sale = saleRepository.findOne({ where: { id } });
 
-  if (!sale) return undefined;
+  const result = await saleRepository.delete(id);
 
-  const result = await saleRepository.softDelete(id);
-  return result.affected;
+  const { affected } = result;
+
+  return affected;
 };
