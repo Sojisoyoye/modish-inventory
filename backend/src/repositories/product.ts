@@ -1,4 +1,5 @@
 import { config } from "../config/database";
+import { CreateProductRequest } from "../controllers/product.controller";
 import { Product } from "../entities";
 
 export class ProductDto {
@@ -13,8 +14,7 @@ export class ProductDto {
   quantityLeft: number | undefined = 0;
 }
 
-
-export const createProduct = async (dto: ProductDto): Promise<Product> => {
+export const createProduct = async (dto: any): Promise<Product> => {
   const productRepository = config.getRepository(Product);
   const product = new Product();
   return productRepository.save({
@@ -25,7 +25,7 @@ export const createProduct = async (dto: ProductDto): Promise<Product> => {
 
 export const updateProduct = async (
   id: number,
-  newProduct: ProductDto
+  newProduct: any
 ): Promise<any> => {
   const productRepository = config.getRepository(Product);
   const updatedProduct = await productRepository.update(id, { ...newProduct });
@@ -64,12 +64,12 @@ export const getProductByNameSizeAndFaced = async (
 
 export const deleteProduct = async (
   id: number
-): Promise<number | undefined> => {
+): Promise<number | undefined | null> => {
   const productRepository = config.getRepository(Product);
-  const product = productRepository.findOne({ where: { id } });
 
-  if (!product) return undefined;
+  const result = await productRepository.delete(id);
 
-  const result = await productRepository.softDelete(id);
-  return result.affected;
+  const { affected } = result;
+
+  return affected;
 };

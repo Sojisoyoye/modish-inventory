@@ -29,36 +29,42 @@ class SaleController {
         req.body.size
       );
 
-      const sale = await createSale(req.body);
-
-      if (product && sale) {
-        const productAmountSold = product.amountSold + req.body.amount;
-
-        const productQuantitySold = product.quantitySold + req.body.quantity;
-
-        let productQuantityLeft;
+      if (product) {
         if (product.quantityLeft === 0) {
-          productQuantityLeft = product.quantity - req.body.quantity;
+          return res.status(400).json({
+            status: 400,
+            message: "Product not available in stock",
+          });
         } else {
-          productQuantityLeft = product.quantityLeft - req.body.quantity;
-        }
+          const productAmountSold = product.amountSold + req.body.amount;
+          const productQuantitySold = product.quantitySold
+            ? product.quantitySold + req.body.quantity
+            : req.body.quantity;
+          const productQuantityLeft = product.quantityLeft - req.body.quantity;
 
-        await updateProduct(product.id, {
-          ...product,
-          amountSold: productAmountSold,
-          quantitySold: productQuantitySold,
-          quantityLeft: productQuantityLeft,
+          await updateProduct(product.id, {
+            ...product,
+            amountSold: productAmountSold,
+            quantitySold: productQuantitySold,
+            quantityLeft: productQuantityLeft,
+          });
+          const sale = await createSale(req.body);
+
+          return res.status(200).json({
+            status: 200,
+            data: [
+              {
+                sale,
+              },
+            ],
+          });
+        }
+      } else {
+        return res.status(404).json({
+          status: 404,
+          message: "Product not found",
         });
       }
-
-      return res.status(200).json({
-        status: 200,
-        data: [
-          {
-            sale,
-          },
-        ],
-      });
     } catch (error) {
       return res.status(400).json({
         status: 400,
@@ -73,6 +79,33 @@ class SaleController {
       status: 200,
       data: sales,
     });
+  }
+
+  async getSale(req: any, res: any): Promise<Sale | null> {
+    try {
+      const sale = await getSale(req.params.id);
+
+      if (sale) {
+        return res.status(200).json({
+          status: 200,
+          data: [
+            {
+              sale,
+            },
+          ],
+        });
+      } else {
+        return res.status(404).json({
+          status: 404,
+          message: "Sale not found",
+        });
+      }
+    } catch (error) {
+      return res.status(400).json({
+        status: 400,
+        error,
+      });
+    }
   }
 
   // leave update sale pending for now

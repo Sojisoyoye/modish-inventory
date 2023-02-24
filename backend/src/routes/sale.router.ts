@@ -7,6 +7,8 @@ router.get("/", SaleController.getSales);
 
 router.post("/", SaleController.createSale);
 
+router.get("/:id", SaleController.getSale);
+
 router.put("/:id", SaleController.updateSale);
 
 router.delete("/:id", SaleController.deleteSale);

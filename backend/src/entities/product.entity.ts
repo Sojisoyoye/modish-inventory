@@ -34,13 +34,16 @@ export class Product {
   @Column()
   totalAmount!: number;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   amountSold!: number;
 
   @Column("numeric", {
     precision: 4,
     scale: 1,
     transformer: new ColumnNumericTransformer(),
+    nullable: true,
   })
   quantitySold!: number;
 

@@ -1,21 +1,26 @@
 # modish-inventory
 
 Create history to show sales date change in stock and all
+validate that sale quantity can not be zero
+validate that negative value can not be entered for create sale and product
+validate that negative value can not be entered for update product
 
 ## User
 
 - User can create/add sale ✅
-- User can edit sale 🚫
-- User can delete sale
 - User can get all sales ✅
 - User can get a sale ✅
+- User can edit sale 🚫
+- User can delete sale 🚫
 - User can see sale history of a product
-- user can see all products with quantity left alone
+- User can see all products with just quantity left column alone
+- User can see a product with just quantity left column alone
 
 ## Admin
 
 - Admin can create/add product ✅
+- Admin can get a product ✅
+- Admin can get all products ✅
 - Admin can edit product
-- Admin can delete product
-- Admin can see all products, amount sold and amount left ✅
-- Admin can see total amount in product inventory
+  - can add quantities to existing product ✅
+- Admin can delete product ✅
