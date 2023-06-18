@@ -22,5 +22,15 @@ validate that negative value can not be entered for update product
 - Admin can get a product ✅
 - Admin can get all products ✅
 - Admin can edit product
-  - can add quantities to existing product ✅
-- Admin can delete product ✅
+  - can add quantities to existing product 
+- Admin can delete product 
+
+## User Auth
+
+- Admin can create a user
+- Admin can get users
+- Admin can get a user
+- Admin can delete/deactivate user
+- User can login
+- User can log out
+- User can reset password

@@ -9,11 +9,11 @@ import {
   updateUser,
   loginUser,
 } from "../repositories/user";
-// import {
-//   comparePassword,
-//   generateToken,
-//   hashPassword,
-// } from "../utils/password";
+import {
+  comparePassword,
+  generateToken,
+  hashPassword,
+} from "../utils/password";
 
 class UserController {
   constructor() {
@@ -31,14 +31,14 @@ class UserController {
 
   async createUser(req: any, res: any): Promise<User> {
     try {
-      // const hashedPassword = await hashPassword(req.body.password);
+      const hashedPassword = await hashPassword(req.body.password);
 
       const newUser = {
         ...req.body,
         // password: hashedPassword,
       };
 
-      // const token = generateToken(newUser.id, newUser.role);
+      const token = generateToken(newUser.id, newUser.role);
 
       const user = await createUser(newUser);
       return res.status(200).json({
