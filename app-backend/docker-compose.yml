@@ -16,6 +16,8 @@ services:
       - POSTGRES_DB=modish
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=mypassword
+    networks:
+      - web
     #   - PGUSER=postgres
     # healthcheck:
     #   test: [ "CMD-SHELL", "pg_isready" ]
@@ -39,8 +41,12 @@ services:
       - POSTGRES_PASSWORD=mypassword
       - POSTGRES_HOST=db
       - POSTGRES_PORT=5432
+      - JWT_SECRET=secret
+      - JWT_EXPIRATION_TIME=72000
     depends_on:
       - db
+    networks:
+      - web
 
 
   # pgadmin:
@@ -61,4 +67,8 @@ volumes:
 
 # networks:
 #    nest-init:
+
+networks:
+  web:
+    driver: bridge
 
