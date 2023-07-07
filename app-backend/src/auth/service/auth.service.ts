@@ -2,10 +2,10 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/service/user.service';
-import { RegisterUserDto } from '../dto';
 import * as bcrypt from 'bcryptjs';
 import { PostgresErrorCode } from 'src/config/postgresErrorCodes';
 import { TokenPayload } from '../token.interface';
+import { UserDto } from 'src/user/dto';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +15,7 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  public async registerUser(userDto: RegisterUserDto) {
+  public async registerUser(userDto: UserDto) {
     const hashedPassword = await bcrypt.hash(userDto.password, 10);
     try {
       const createdUser = await this.userService.create({

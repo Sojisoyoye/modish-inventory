@@ -14,13 +14,18 @@ import { RegisterUserDto } from '../dto';
 import ReqWithUser from '../reqWithUser.interface';
 import { Response } from 'express';
 import { JwtAuthGuard } from '../jwt-auth.guard';
+import { Role, UserDto } from 'src/user/dto';
+import { Roles } from 'src/user/roles.decorator';
+import { RolesGuard } from 'src/user/roles.guard';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authenticationService: AuthService) {}
 
+  @Roles(Role.Admin)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Post('register')
-  async register(@Body() registrationData: RegisterUserDto) {
+  async register(@Body() registrationData: UserDto) {
     return this.authenticationService.registerUser(registrationData);
   }
 

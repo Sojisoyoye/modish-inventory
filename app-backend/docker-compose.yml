@@ -33,22 +33,21 @@ services:
       - web
 
 
-  # pgadmin4:
-  #   container_name: pgadmin4
-  #   links:
-  #     - db
-  #   image: dpage/pgadmin4
-  #   restart: always
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - '8080:80'
-  #   volumes:
-  #     - /data/pgadmin:/root/.pgadmin
-  #   depends_on:
-  #     - db
-  #   networks:
-  #     - web
+  pgadmin4:
+    container_name: pgadmin4
+    # links:
+    #   - db
+    image: dpage/pgadmin4
+    ports:
+      - '8080:80'
+    env_file:
+      - .env
+    # volumes:
+    #   - /data/pgadmin:/root/.pgadmin
+    depends_on:
+      - db
+    networks:
+      - web
 
 volumes:
    postgres:
