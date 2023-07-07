@@ -2,29 +2,21 @@ version: "3.8"
 
 services:
   db:
+    container_name: db
     image: postgres:13-alpine
     # restart: always
     ports:
       - '5432:5432'
-    # env_file:
-    #   - .env
+    env_file:
+      - .env
     volumes:
       - postgres:/var/lib/postgresql/data
-    # networks:
-    #   - nest-init
-    environment:
-      - POSTGRES_DB=modish
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=mypassword
-    #   - PGUSER=postgres
-    # healthcheck:
-    #   test: [ "CMD-SHELL", "pg_isready" ]
-    #   interval: 5s
-    #   timeout: 5s
-    #   retries: 5
+    networks:
+      - web
   
 
   app:
+    container_name: app
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -33,32 +25,36 @@ services:
       - /usr/app/node_modules
     ports:
       - '3001:3001'
-    environment:
-      - POSTGRES_DB=modish
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=mypassword
-      - POSTGRES_HOST=db
-      - POSTGRES_PORT=5432
+    env_file:
+      - .env
     depends_on:
       - db
+    networks:
+      - web
 
 
-  # pgadmin:
+  # pgadmin4:
+  #   container_name: pgadmin4
+  #   links:
+  #     - db
   #   image: dpage/pgadmin4
   #   restart: always
-  #   container_name: nest-pgadmin4
-  #   environment:
-  #     - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-  #     - PGADMIN_DEFAULT_PASSWORD=pgadmin4
+  #   env_file:
+  #     - .env
   #   ports:
-  #     - '5050:80'
+  #     - '8080:80'
+  #   volumes:
+  #     - /data/pgadmin:/root/.pgadmin
   #   depends_on:
-  #     - modish-db
+  #     - db
+  #   networks:
+  #     - web
 
 volumes:
    postgres:
       name: nest-modish-docker-db
 
-# networks:
-#    nest-init:
+networks:
+  web:
+    driver: bridge
 
