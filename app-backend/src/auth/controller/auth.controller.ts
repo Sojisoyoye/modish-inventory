@@ -3,18 +3,24 @@ import {
   Controller,
   Get,
   HttpCode,
+  Patch,
   Post,
+  Put,
   Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from '../service/auth.service';
 import { LocalAuthGuard } from '../localAuth.guard';
-import { RegisterUserDto } from '../dto';
 import ReqWithUser from '../reqWithUser.interface';
 import { Response } from 'express';
 import { JwtAuthGuard } from '../jwt-auth.guard';
-import { Role, UserDto } from 'src/user/dto';
+import {
+  Role,
+  UserDto,
+  changePasswordDto,
+  resetPasswordDto,
+} from 'src/user/dto';
 import { Roles } from 'src/user/roles.decorator';
 import { RolesGuard } from 'src/user/roles.guard';
 
@@ -29,6 +35,23 @@ export class AuthController {
     return this.authenticationService.registerUser(registrationData);
   }
 
+  @Roles(Role.Admin)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Patch('reset-password')
+  async resetPassword(
+    @Body() resetPasswordData: resetPasswordDto,
+    @Res() response: Response,
+  ) {
+    const userName = await this.authenticationService.resetPassword(
+      resetPasswordData,
+    );
+    return response.status(200).json({
+      status: 200,
+      message: 'Password reset successful',
+      data: userName,
+    });
+  }
+
   @HttpCode(200)
   @UseGuards(LocalAuthGuard)
   @Post('login')
@@ -37,7 +60,11 @@ export class AuthController {
     const cookie = this.authenticationService.getCookieWithJwtToken(user.id);
     response.setHeader('Set-Cookie', cookie);
     user.password = undefined;
-    return response.send(user);
+    return response.status(200).json({
+      status: 200,
+      message: 'Login successful',
+      data: user,
+    });
   }
 
   @UseGuards(JwtAuthGuard)
@@ -56,5 +83,19 @@ export class AuthController {
     const user = request.user;
     user.password = undefined;
     return user;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put('change-password')
+  async changePassword(
+    @Body() data: changePasswordDto,
+    @Res() response: Response,
+  ) {
+    const userName = await this.authenticationService.changePassword(data);
+    return response.status(200).json({
+      status: 200,
+      message: 'Password change successful',
+      data: userName,
+    });
   }
 }

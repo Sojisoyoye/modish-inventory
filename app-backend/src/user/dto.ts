@@ -11,3 +11,14 @@ export class UserDto {
   password: string;
   role: Role;
 }
+
+export class changePasswordDto {
+  userName: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export class resetPasswordDto {
+  userName: string;
+  password: string;
+}

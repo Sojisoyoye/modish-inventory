@@ -60,4 +60,13 @@ export class UserService {
       HttpStatus.NOT_FOUND,
     );
   }
+
+  async updateUser(userName: string, hashedPassword: string) {
+  const updatedUser = await  this.userRepository.update(
+    { userName },
+    { password: hashedPassword }
+  );
+
+  return updatedUser.affected;
+  }
 }

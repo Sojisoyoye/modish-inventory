@@ -62,10 +62,11 @@ _cookie based authentication, role based authorization_
 - Admin can create a user ✅
 - Admin can get users ✅
 - Admin can get a user ✅
+- Admin can reset user password ✅
 - Admin can delete/deactivate user
 - User can login ✅
 - User can log out ✅
-- User can reset password
+- User can reset/change password ✅
 
 ## Installation
 
