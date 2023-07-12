@@ -16,11 +16,13 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 export class SaleController {
   constructor(private readonly saleService: SaleService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   public async getAll() {
     return await this.saleService.getAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   public async getSale(@Param('id') id: number) {
     try {
@@ -33,6 +35,7 @@ export class SaleController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @UseGuards(JwtAuthGuard)
   async createSale(@Body() saleDto: SaleDto) {

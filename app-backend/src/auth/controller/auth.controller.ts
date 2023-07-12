@@ -24,7 +24,7 @@ import {
 import { Roles } from 'src/user/roles.decorator';
 import { RolesGuard } from 'src/user/roles.guard';
 
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
   constructor(private readonly authenticationService: AuthService) {}
 

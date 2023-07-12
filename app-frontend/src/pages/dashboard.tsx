@@ -22,23 +22,7 @@ import Chart from '../components/chart'
 import Deposits from '../components/deposits'
 import Orders from '../components/orders'
 
-function Copyright(props: any) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
+
 
 const drawerWidth: number = 240
 
@@ -218,6 +202,24 @@ function DashboardContent() {
   )
 }
 
-export default function Dashboard() {
+function Copyright(props: any) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  )
+}
+
+export function Dashboard() {
   return <DashboardContent />
 }

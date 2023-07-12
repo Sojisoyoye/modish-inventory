@@ -52,7 +52,7 @@
 - Admin can get all products ✅
 - Admin can edit product
   - can add quantities to existing product
-- Admin can delete product
+- Admin can delete product.
 
 ## User, Authentication and Authorization
 

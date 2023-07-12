@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 export const SideBar = () => {
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     return (
         <>
@@ -27,7 +27,7 @@ export const SideBar = () => {
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
-      <ListItemText primary="Sales" onClick={() => history(`/sale`)} />
+      <ListItemText primary="Sales" onClick={() => navigate("/sale")} />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>

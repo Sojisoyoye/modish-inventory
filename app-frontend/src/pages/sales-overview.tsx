@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useState }  from 'react'
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import MuiDrawer from '@mui/material/Drawer'
@@ -94,8 +94,8 @@ const Drawer = styled(MuiDrawer, {
 
 const mdTheme = createTheme()
 
-function SalesOverview() {
-  const [open, setOpen] = React.useState(true)
+export const SalesOverview = () => {
+  const [open, setOpen] = useState(true)
   const toggleDrawer = () => {
     setOpen(!open)
   }
@@ -255,6 +255,6 @@ function SalesOverview() {
   )
 }
 
-export default function Dashboard() {
-  return <SalesOverview />
-}
+// export default function Dashboard() {
+//   return <SalesOverview />
+// }

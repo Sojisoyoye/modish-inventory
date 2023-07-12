@@ -69,4 +69,17 @@ export class UserService {
 
   return updatedUser.affected;
   }
+
+  async deleteUser(userName: string,) {
+    const user = await this.userRepository.findOneByOrFail({ userName })
+    if (!user) {
+      throw new HttpException('No user available', HttpStatus.NOT_FOUND);
+    }
+
+    const result = await this.userRepository.softDelete(user.id);
+
+    const { affected } = result;
+  
+    return affected;
+  }
 }

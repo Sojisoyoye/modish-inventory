@@ -12,36 +12,43 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { signIn } from '../api/auth'
+import { useForm, SubmitHandler } from "react-hook-form"
+import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
+import { error } from 'console'
 
-function Copyright(props: any) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
 
 const theme = createTheme()
 
-export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    })
+type UserData = {
+  userName: string
+  password: string
+}
+
+export const SignIn = () => {
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<UserData>()
+
+  const mutation = useMutation({
+    mutationFn: (data: {userName: string, password: string}) => signIn(data),
+    onSuccess: (data) => navigate("/dashboard"),
+    onError: (error) => console.log(error)
+  })
+
+  // event: React.FormEvent<HTMLFormElement>
+
+  const onSubmit: SubmitHandler<UserData> = (data) => {
+    mutation.mutate(data)
   }
+
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -61,9 +68,10 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             noValidate
             sx={{ mt: 1 }}
           >
@@ -71,20 +79,20 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="userName"
+              label="User Name"
+              autoComplete="userName"
+              {...register("userName")}
               autoFocus
             />
             <TextField
               margin="normal"
               required
               fullWidth
-              name="password"
               label="Password"
               type="password"
               id="password"
+              {...register("password")}
               autoComplete="current-password"
             />
             <FormControlLabel
@@ -116,5 +124,24 @@ export default function SignIn() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+  )
+}
+
+
+const Copyright = (props: any) => {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {'Copyright © '}
+      <Link color="inherit" href="/" px={1}>
+        Modish Standard Limited
+      </Link>
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
   )
 }

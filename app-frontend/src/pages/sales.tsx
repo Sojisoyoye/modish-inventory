@@ -49,7 +49,7 @@ const theme = createTheme()
 
 export const Sale = () => {
   const [activeStep, setActiveStep] = React.useState(0)
-  const history = useNavigate();
+  const navigate = useNavigate();
 
 
   const handleNext = () => {
@@ -79,7 +79,7 @@ export const Sale = () => {
         </Toolbar>
       </AppBar>
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-        <Button onClick={() => history(`/sale-overview`)}>Back to home</Button>
+        <Button onClick={() => navigate("/dashboard")}>Back to home</Button>
         <Paper
           variant="outlined"
           sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}

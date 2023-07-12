@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+# MODISH STANDARD
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Modish Inventory UI
 
-## Available Scripts
+### Pages
 
-In the project directory, you can run:
+- Landing page
+- Signin page
+- Dashboard page
+- Reset password page
+- Create sale page
+- Edit sale page
 
-### `npm start`
+**Sections**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. _Sales_
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+   - User can create sale flow (enter the sale details, preview and confirm).
+   - User can edit sale flow (to add or remove product, to mark it paid or not).
+   - User can delete sale. (soft delete or keep history). (action button)
 
-### `npm test`
+2. _User auth & management_
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- User can login ✅
+- User can log out
+- User can reset/change password
+
+3. _Dashboard_
+
+- _`Side Menu`_
+
+  - Sales
+  - Products
+
+- _`Sales history and product sold and remaining details`_
+  - User can see top 10 or 20 sales (table)
+  - User can see all products with just quantity left column alone (maybe table)
+
+3. _Product_
+
+- Admin can create/add product
+- Admin can get a product
+- Admin can get all products
+- Admin can edit product
+  - can add quantities to existing product
+- Admin can delete product.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+`eject`
 
 ## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

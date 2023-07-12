@@ -1,9 +1,10 @@
 # modish-inventory
 
-Create history to show sales date change in stock and all
-validate that sale quantity can not be zero
-validate that negative value can not be entered for create sale and product
-validate that negative value can not be entered for update product
+:**TODO**
+1. *Create history to show sales date change in stock and all.*
+2. *Validate that sale quantity can not be zero.*
+3. *Validate that negative value can not be entered for create sale and product.*
+4. *Validate that negative value can not be entered for update product.*
 
 ## User
 

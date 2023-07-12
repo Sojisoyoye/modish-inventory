@@ -1,24 +1,18 @@
 import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-import Login from './pages/login'
-import SignIn from './pages/signin'
-import DashboardContent from './pages/dashboard'
 import Checkout from './pages/checkout'
 import { Sale } from './pages/sales'
-import SalesDashboard from './pages/sales-overview'
+import { SignIn } from './pages/signin'
+import { Dashboard } from './pages/dashboard'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Login />,
-  },
-  {
-    path: '/signin',
     element: <SignIn />,
   },
   {
     path: '/dashboard',
-    element: <DashboardContent />,
+    element: <Dashboard />,
   },
   {
     path: '/checkout',
@@ -30,7 +24,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/sale-overview',
-    element: <SalesDashboard />,
+    element: <Dashboard />,
   },
 ])
 
