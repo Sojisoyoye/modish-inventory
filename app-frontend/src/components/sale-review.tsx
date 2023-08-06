@@ -1,15 +1,15 @@
-import * as React from 'react'
-import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell, { tableCellClasses } from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
-import Box from '@mui/material/Box'
-import TableFooter from '@mui/material/TableFooter'
+import * as React from 'react';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import TableFooter from '@mui/material/TableFooter';
 
 const products = [
   {
@@ -28,7 +28,7 @@ const products = [
     price: '₦24,000',
     status: 'UNPAID',
   },
-]
+];
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,7 +39,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14,
     paddingLeft: 0,
   },
-}))
+}));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
@@ -49,7 +49,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:last-child td, &:last-child th': {
     // border: 0,
   },
-}))
+}));
 
 export default function SaleReview() {
   return (
@@ -132,5 +132,5 @@ export default function SaleReview() {
         </Table>
       </TableContainer>
     </React.Fragment>
-  )
+  );
 }

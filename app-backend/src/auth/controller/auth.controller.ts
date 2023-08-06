@@ -46,7 +46,7 @@ export class AuthController {
       resetPasswordData,
     );
     return response.status(200).json({
-      status: 200,
+      statusCode: 200,
       message: 'Password reset successful',
       data: userName,
     });
@@ -57,25 +57,24 @@ export class AuthController {
   @Post('login')
   async logIn(@Req() request: ReqWithUser, @Res() response: Response) {
     const { user } = request;
-    const cookie = this.authenticationService.getCookieWithJwtToken(user.id);
-    response.setHeader('Set-Cookie', cookie);
+    const token = this.authenticationService.getCookieWithJwtToken(user.id);
+    // response.setHeader('Set-Cookie', cookie);
+    // response.setHeader('Authorization', `Bearer ${token}`);
     user.password = undefined;
     return response.status(200).json({
-      status: 200,
+      statusCode: 200,
       message: 'Login successful',
       data: user,
+      token,
     });
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Post('logout')
-  async logOut(@Req() request: ReqWithUser, @Res() response: Response) {
-    response.setHeader(
-      'Set-Cookie',
-      this.authenticationService.getCookieForLogOut(),
-    );
-    return response.sendStatus(200);
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @Post('logout')
+  // async logOut(@Req() request: ReqWithUser, @Res() response: Response) {
+  //   response.setHeader('Authorization', '');
+  //   return response.sendStatus(200);
+  // }
 
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -93,7 +92,7 @@ export class AuthController {
   ) {
     const userName = await this.authenticationService.changePassword(data);
     return response.status(200).json({
-      status: 200,
+      statusCode: 200,
       message: 'Password change successful',
       data: userName,
     });

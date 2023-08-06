@@ -1,9 +1,9 @@
-import React from 'react'
-import { createBrowserRouter } from 'react-router-dom'
-import Checkout from './pages/checkout'
-import { Sale } from './pages/sales'
-import { SignIn } from './pages/signin'
-import { Dashboard } from './pages/dashboard'
+import React from 'react';
+import { createBrowserRouter } from 'react-router-dom';
+import Checkout from './pages/checkout';
+import { Sale } from './pages/sales';
+import { SignIn } from './pages/signin';
+import { Dashboard } from './pages/dashboard';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +26,6 @@ const router = createBrowserRouter([
     path: '/sale-overview',
     element: <Dashboard />,
   },
-])
+]);
 
-export default router
+export default router;

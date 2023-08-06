@@ -1,16 +1,15 @@
-import * as React from 'react'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell, { tableCellClasses } from '@mui/material/TableCell'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import { styled } from '@mui/material/styles'
-import Typography from '@mui/material/Typography'
-import TableContainer from '@mui/material/TableContainer'
-import Paper from '@mui/material/Paper'
-import Box from '@mui/material/Box'
-import TableFooter from '@mui/material/TableFooter'
-import Button from '@mui/material/Button'
+import * as React from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import TableContainer from '@mui/material/TableContainer';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 // Generate Order Data
 function createData(
@@ -21,9 +20,11 @@ function createData(
   size: string,
   quantity: string,
   price: string,
-  status: string
+  status: string,
 ) {
-  return { id, date, name, faced, size, quantity, price, status }
+  return {
+    id, date, name, faced, size, quantity, price, status,
+  };
 }
 
 const rows = [
@@ -35,7 +36,7 @@ const rows = [
     '21mm or 3/4',
     '400m',
     '24,000',
-    'PAID'
+    'PAID',
   ),
   createData(
     2,
@@ -45,7 +46,7 @@ const rows = [
     '21mm or 3/4',
     '200m',
     '24,000',
-    'UNPAID'
+    'UNPAID',
   ),
   createData(
     3,
@@ -55,7 +56,7 @@ const rows = [
     '2"',
     '700m',
     '24,000',
-    'PAID'
+    'PAID',
   ),
   createData(
     4,
@@ -65,7 +66,7 @@ const rows = [
     '21mm or 3/4',
     '400m',
     '24,000',
-    'PAID'
+    'PAID',
   ),
   createData(
     5,
@@ -75,9 +76,9 @@ const rows = [
     '21mm or 3/4',
     '400m',
     '24,000',
-    'UPAID'
+    'UPAID',
   ),
-]
+];
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -88,7 +89,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14,
     paddingLeft: 0,
   },
-}))
+}));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
@@ -98,11 +99,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:last-child td, &:last-child th': {
     // border: 0,
   },
-}))
+}));
 
 export default function SaleTable() {
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h6" sx={{ marginBottom: '40px' }}>
         Sales order summary
       </Typography>
@@ -121,12 +122,18 @@ export default function SaleTable() {
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <StyledTableRow key={row.name}>
+              <StyledTableRow key={row.id}>
                 <StyledTableCell align="right">
-                  <Typography variant="subtitle1"> {row.id}</Typography>
+                  <Typography variant="subtitle1">
+                    {' '}
+                    {row.id}
+                  </Typography>
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  <Typography variant="subtitle1"> {row.date}</Typography>
+                  <Typography variant="subtitle1">
+                    {' '}
+                    {row.date}
+                  </Typography>
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
                   <Box
@@ -146,7 +153,10 @@ export default function SaleTable() {
                   </Box>
                 </StyledTableCell>
                 <StyledTableCell>
-                  <Typography variant="subtitle1"> {row.quantity}</Typography>
+                  <Typography variant="subtitle1">
+                    {' '}
+                    {row.quantity}
+                  </Typography>
                 </StyledTableCell>
                 <StyledTableCell>
                   <Typography variant="subtitle1">{`$${row.price}`}</Typography>
@@ -157,18 +167,18 @@ export default function SaleTable() {
                   </Typography>
                 </StyledTableCell>
                 <StyledTableCell>
-                <Button
-                  variant="contained"
-                  sx={{ backgroundColor: '#051094' }}
-                >
-                 Edit
-                </Button>
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: '#051094' }}
+                  >
+                    Edit
+                  </Button>
                 </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-    </React.Fragment>
-  )
+    </>
+  );
 }

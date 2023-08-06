@@ -1,12 +1,12 @@
-import React, { useState }  from 'react'
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
-import TextField from '@mui/material/TextField'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
-import MenuItem from '@mui/material/MenuItem'
-import Box from '@mui/material/Box'
-import InputAdornment from '@mui/material/InputAdornment'
+import React, { useState } from 'react';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import MenuItem from '@mui/material/MenuItem';
+import Box from '@mui/material/Box';
+import InputAdornment from '@mui/material/InputAdornment';
 import {
   Button,
   FormControl,
@@ -14,8 +14,8 @@ import {
   InputLabel,
   OutlinedInput,
   SelectChangeEvent,
-} from '@mui/material'
-import { NumericFormat } from 'react-number-format'
+} from '@mui/material';
+import { NumericFormat } from 'react-number-format';
 
 const currencies = [
   {
@@ -38,7 +38,7 @@ const currencies = [
     value: 'PERFECTWHITE',
     label: 'PERFECT WHITE',
   },
-]
+];
 
 const faced = [
   {
@@ -53,7 +53,7 @@ const faced = [
     value: 'GLOSSY',
     label: 'GLOSSY',
   },
-]
+];
 
 const size = [
   {
@@ -63,18 +63,19 @@ const size = [
   {
     label: '48mm',
     value: false,
-  }
-]
+  },
+];
 
 export const SalesForm = () => {
   const [productName, setProductName] = useState<string>('');
   const [productFaced, setProductFaced] = useState<string>('');
-  const [sizeThreeQuarter, setSizeThreeQuarter] = useState<boolean>(size[0].value);
+  const [sizeThreeQuarter, setSizeThreeQuarter] = useState<boolean>(
+    size[0].value,
+  );
   const [sizeTwoInches, setSizeTwoInches] = useState<boolean>(size[1].value);
   const [productQuantity, setProductQuantity] = useState<string>('');
   const [productAmount, setProductAmount] = useState<string>('');
   const [comment, setComment] = useState<string>('');
-
 
   return (
     <React.Fragment>
@@ -128,11 +129,27 @@ export const SalesForm = () => {
           >
             <FormControlLabel
               label="21mm or 3/4"
-              control={<Checkbox sx={{ mt: 0 }} checked={sizeThreeQuarter} onChange={(e) => {setSizeThreeQuarter(e.target.checked)}} />}
+              control={
+                <Checkbox
+                  sx={{ mt: 0 }}
+                  checked={sizeThreeQuarter}
+                  onChange={(e) => {
+                    setSizeThreeQuarter(e.target.checked);
+                  }}
+                />
+              }
             />
             <FormControlLabel
               label='48mm or 2"'
-              control={<Checkbox sx={{ pt: 0, pb: 0 }} checked={sizeTwoInches} onChange={(e) => {setSizeTwoInches(e.target.checked)}} />}
+              control={
+                <Checkbox
+                  sx={{ pt: 0, pb: 0 }}
+                  checked={sizeTwoInches}
+                  onChange={(e) => {
+                    setSizeTwoInches(e.target.checked);
+                  }}
+                />
+              }
             />
             <Typography variant="caption" color="info">
               Please select product size
@@ -165,7 +182,6 @@ export const SalesForm = () => {
             label="Amount"
             helperText="Please enter product amount"
             onChange={(e) => setProductAmount(e.target.value)}
-
           />
         </Grid>
 
@@ -179,11 +195,27 @@ export const SalesForm = () => {
           >
             <FormControlLabel
               label="PAID"
-              control={<Checkbox sx={{ mt: 0 }} checked={sizeThreeQuarter} onChange={(e) => {setSizeThreeQuarter(e.target.checked)}} />}
+              control={
+                <Checkbox
+                  sx={{ mt: 0 }}
+                  checked={sizeThreeQuarter}
+                  onChange={(e) => {
+                    setSizeThreeQuarter(e.target.checked);
+                  }}
+                />
+              }
             />
             <FormControlLabel
               label="UNPAID"
-              control={<Checkbox sx={{ pt: 0, pb: 0 }} checked={sizeThreeQuarter} onChange={(e) => {setSizeThreeQuarter(e.target.checked)}} />}
+              control={
+                <Checkbox
+                  sx={{ pt: 0, pb: 0 }}
+                  checked={sizeThreeQuarter}
+                  onChange={(e) => {
+                    setSizeThreeQuarter(e.target.checked);
+                  }}
+                />
+              }
             />
           </Box>
         </Grid>
@@ -220,5 +252,5 @@ export const SalesForm = () => {
         </Grid>
       </Grid>
     </React.Fragment>
-  )
-}
+  );
+};

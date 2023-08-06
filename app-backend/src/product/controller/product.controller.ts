@@ -16,7 +16,7 @@ import { Roles } from 'src/user/roles.decorator';
 import { Role } from 'src/user/dto';
 import { RolesGuard } from 'src/user/roles.guard';
 
-@Controller('product')
+@Controller('api/product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 

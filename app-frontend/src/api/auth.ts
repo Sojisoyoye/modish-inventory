@@ -1,13 +1,28 @@
-import axios from 'axios'
+import { poster } from '../apiCaller';
 
-const baseUrl = 'http://localhost:3001'
+// const baseUrl = 'http://localhost:3001';
 
 export const signIn = async (userData: {
-  userName: string
-  password: string
+  userName: string;
+  password: string;
 }) => {
-  const url = `/api/auth/login`
-  const { data } = await axios.post(url, userData)
+  const url = '/api/auth/login';
+  const res = await poster(url, userData);
 
-  return data
-}
+  if (res.statusCode !== 200) {
+    throw new Error(res.message);
+  }
+
+  return res;
+};
+
+// export const signOut = async () => {
+//   const url = '/api/auth/logout';
+//   const res = await poster(url, {});
+
+//   if (res.statusCode !== 200) {
+//     throw new Error(res.message);
+//   }
+
+//   return res;
+// };
