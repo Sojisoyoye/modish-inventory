@@ -7,8 +7,10 @@ import {
   Param,
   Post,
   Put,
+  Res,
   UseGuards,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { ProductDto } from '../dto';
 import { ProductService } from '../service/product.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -22,8 +24,13 @@ export class ProductController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  public async getAll() {
-    return await this.productService.getAll();
+  public async getAll(@Res() response: Response) {
+    const products = await this.productService.getAll();
+
+    return response.status(200).json({
+      statusCode: 200,
+      data: products,
+    });
   }
 
   @UseGuards(JwtAuthGuard)
@@ -42,8 +49,17 @@ export class ProductController {
   @Roles(Role.Admin)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Post()
-  async createProduct(@Body() productDto: ProductDto) {
-    return await this.productService.createProduct(productDto);
+  async createProduct(
+    @Body() productDto: ProductDto,
+    @Res() response: Response,
+  ) {
+    const product = await this.productService.createProduct(productDto);
+
+    return response.status(201).json({
+      statusCode: 201,
+      message: 'Product successfully created',
+      data: product,
+    });
   }
 
   @Roles(Role.Admin)

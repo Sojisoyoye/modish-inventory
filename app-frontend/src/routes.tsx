@@ -1,9 +1,9 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import Checkout from './pages/checkout';
-import { Sale } from './pages/sales';
+import { Sale } from './pages/create-sale';
 import { SignIn } from './pages/signin';
-import { Dashboard } from './pages/dashboard';
+import { Dashboard } from './pages/old-dashboard';
 
 const router = createBrowserRouter([
   {

@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import TableFooter from '@mui/material/TableFooter';
+import { useProducts } from '../hooks/useProducts';
 
 const products = [
   {
@@ -52,6 +53,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function SaleReview() {
+
+  const { formData } = useProducts();
+
+  // FIXME: not working, find another way to receive the form data
+  console.log("passed form data>> ", formData)
+
   return (
     <React.Fragment>
       <Typography variant="h6" sx={{ marginBottom: '40px' }}>

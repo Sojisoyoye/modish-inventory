@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { Fragment, useState } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -19,22 +19,10 @@ import { SalesForm } from '../components/sales-form'
 import SaleReview from '../components/sale-review'
 import { useNavigate } from 'react-router-dom'
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
 
-const steps = ['Product details', 'Review your order']
+const createSaleSteps = ['Product details', 'Review your order']
 
-function getStepContent(step: number) {
+const getStepContent = (step: number) => {
   switch (step) {
     case 0:
       return <SalesForm />
@@ -45,12 +33,9 @@ function getStepContent(step: number) {
   }
 }
 
-const theme = createTheme()
-
-export const Sale = () => {
-  const [activeStep, setActiveStep] = React.useState(0)
+export const CreateSale = () => {
   const navigate = useNavigate();
-
+  const [activeStep, setActiveStep] = useState(0)
 
   const handleNext = () => {
     setActiveStep(activeStep + 1)
@@ -61,23 +46,6 @@ export const Sale = () => {
   }
 
   return (
-    // <ThemeProvider theme={theme}>
-    //   <CssBaseline />
-    //   <AppBar
-    //     position="absolute"
-    //     color="default"
-    //     elevation={0}
-    //     sx={{
-    //       position: 'relative',
-    //       borderBottom: (t) => `1px solid ${t.palette.divider}`,
-    //     }}
-    //   >
-    //     <Toolbar>
-    //       <Typography variant="h6" color="inherit" noWrap>
-    //         MODISH STANDARD LIMITED
-    //       </Typography>
-    //     </Toolbar>
-    //   </AppBar>
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Button onClick={() => navigate("/dashboard")}>Back to home</Button>
         <Paper
@@ -88,14 +56,14 @@ export const Sale = () => {
             Add Sales
           </Typography>
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
-            {steps.map((label) => (
+            {createSaleSteps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
               </Step>
             ))}
           </Stepper>
-          {activeStep === steps.length ? (
-            <React.Fragment>
+          {activeStep === createSaleSteps.length ? (
+            <Fragment>
               <Typography variant="h5" gutterBottom>
                 Thank you for your order.
               </Typography>
@@ -104,7 +72,7 @@ export const Sale = () => {
                 confirmation, and will send you an update when your order has
                 shipped.
               </Typography>
-            </React.Fragment>
+            </Fragment>
           ) : (
             <React.Fragment>
               {getStepContent(activeStep)}
@@ -124,14 +92,12 @@ export const Sale = () => {
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  {activeStep === steps.length - 1 ? 'Save' : 'Next'}
+                  {activeStep === createSaleSteps.length - 1 ? 'Save' : 'Next'}
                 </Button>
               </Box>
             </React.Fragment>
           )}
         </Paper>
-        <Copyright />
       </Container>
-    // </ThemeProvider>
   )
 }

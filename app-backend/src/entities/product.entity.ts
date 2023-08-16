@@ -4,12 +4,12 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-} from "typeorm";
-import { ColumnNumericTransformer } from "./util";
+} from 'typeorm';
+import { ColumnNumericTransformer } from './util';
 
 @Entity()
 export class Product {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id!: number;
 
   @Column()
@@ -21,7 +21,7 @@ export class Product {
   @Column()
   size!: string;
 
-  @Column("numeric", {
+  @Column('numeric', {
     precision: 4,
     scale: 1,
     transformer: new ColumnNumericTransformer(),
@@ -39,7 +39,7 @@ export class Product {
   })
   amountSold!: number;
 
-  @Column("numeric", {
+  @Column('numeric', {
     precision: 4,
     scale: 1,
     transformer: new ColumnNumericTransformer(),
@@ -47,7 +47,7 @@ export class Product {
   })
   quantitySold!: number;
 
-  @Column("numeric", {
+  @Column('numeric', {
     precision: 4,
     scale: 1,
     transformer: new ColumnNumericTransformer(),

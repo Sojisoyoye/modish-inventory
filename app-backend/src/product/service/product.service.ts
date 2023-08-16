@@ -21,22 +21,35 @@ export class ProductService {
     });
   }
 
-  public async createProduct(productDto: ProductDto) {
-    try {
-      const product = await this.productRepository.create({
-        ...productDto,
-        unitPrize: productDto.unitPrize,
-        quantityLeft: productDto.quantity,
-        totalAmount: productDto.quantity * productDto.unitPrize,
-      });
+  async createProduct(productDto: ProductDto) {
+    const productExist = await this.productRepository.findOneByOrFail({
+      name: productDto.name,
+      faced: productDto.faced,
+      size: productDto.size,
+    });
 
-      return product;
-    } catch (error) {
+    if (productExist) {
       throw new HttpException(
-        `Product can not be created ${error}`,
+        'Product already exist, update instead',
         HttpStatus.BAD_REQUEST,
       );
     }
+
+    const product = await this.productRepository.save({
+      ...productDto,
+      unitPrize: productDto.unitPrize,
+      quantityLeft: productDto.quantity,
+      totalAmount: productDto.quantity * productDto.unitPrize,
+    });
+
+    if (!product) {
+      throw new HttpException(
+        'Product can not be created',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    return product;
   }
 
   public async updateProduct(productDto: ProductDto, productId: number) {
@@ -64,7 +77,7 @@ export class ProductService {
       }
     } catch (error) {
       throw new HttpException(
-        `Product can not be created ${error}`,
+        `Product can not be updated ${error}`,
         HttpStatus.BAD_REQUEST,
       );
     }

@@ -1,101 +1,70 @@
-import React, { useState } from 'react';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import MenuItem from '@mui/material/MenuItem';
-import Box from '@mui/material/Box';
-import InputAdornment from '@mui/material/InputAdornment';
+import React, { Fragment, useState } from 'react';
 import {
-  Button,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  OutlinedInput,
-  SelectChangeEvent,
+  Button, Grid, MenuItem, TextField, Typography
 } from '@mui/material';
 import { NumericFormat } from 'react-number-format';
-
-const currencies = [
-  {
-    value: 'WENGE',
-    label: 'WENGE',
-  },
-  {
-    value: 'REDROSE',
-    label: 'RED ROSE',
-  },
-  {
-    value: 'CEDAR',
-    label: 'CEDAR',
-  },
-  {
-    value: 'SWITCH',
-    label: 'SWITCH',
-  },
-  {
-    value: 'PERFECTWHITE',
-    label: 'PERFECT WHITE',
-  },
-];
-
-const faced = [
-  {
-    value: 'EMBOSSED',
-    label: 'EMBOSSED',
-  },
-  {
-    value: 'MATT',
-    label: 'MATT',
-  },
-  {
-    value: 'GLOSSY',
-    label: 'GLOSSY',
-  },
-];
-
-const size = [
-  {
-    label: '21mm',
-    value: false,
-  },
-  {
-    label: '48mm',
-    value: false,
-  },
-];
+import { useProducts } from '../hooks/useProducts';
+import { useForm } from 'react-hook-form';
+import { paymentStatus, productFaced, productSizes } from '../constants';
 
 export const SalesForm = () => {
-  const [productName, setProductName] = useState<string>('');
-  const [productFaced, setProductFaced] = useState<string>('');
-  const [sizeThreeQuarter, setSizeThreeQuarter] = useState<boolean>(
-    size[0].value,
-  );
-  const [sizeTwoInches, setSizeTwoInches] = useState<boolean>(size[1].value);
+
+  const { productData, saveSaleFormData } = useProducts();
+
+  const { register, watch, getValues, handleSubmit, reset } = useForm<any>();
+
   const [productQuantity, setProductQuantity] = useState<string>('');
-  const [productAmount, setProductAmount] = useState<string>('');
-  const [comment, setComment] = useState<string>('');
+  const [productUnitprice, setProductUnitPrice] = useState<string>('');
+
+  const [saleDto, setSaleDto] = useState<any[]>([]);
+
+  const resetFormValues = () => {
+    reset()
+   setProductQuantity('')
+   setProductUnitPrice('')
+  }
+
+  const getFormValues = () => {
+   const formValues = getValues();
+
+   const newSale = {
+    ...formValues,
+    quantity: productQuantity.slice(0, -7),
+    amount: productUnitprice.substring(1).replace(/,/g, ''),
+   }
+
+   setSaleDto(prev => [...prev, newSale]);
+
+   resetFormValues()
+  }
+
+  const onSubmit = () => {
+    // TODO: pass form data to the saleReview page
+    saveSaleFormData(saleDto);
+  }
+
 
   return (
-    <React.Fragment>
-      <Typography variant="h6" sx={{ marginBottom: '40px' }}>
+    <Fragment>
+      <Typography variant="h6" textAlign='center' sx={{ marginBottom: '40px' }}>
         Enter product details
       </Typography>
+      <form onSubmit={handleSubmit(onSubmit)}>
+
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
-            id="select-currency"
+            id="product"
             select
             label="Product name"
-            value={productName}
             helperText="Please select product name"
             fullWidth
-            onChange={(e) => setProductName(e.target.value)}
+            value={watch('productName') || ''}
+            {...register('productName')}
           >
-            {currencies.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
+            {productData && productData.data.map((option: any) => (
+              <MenuItem key={option.id} value={option.name}>
+                {option.name}
               </MenuItem>
             ))}
           </TextField>
@@ -103,137 +72,109 @@ export const SalesForm = () => {
 
         <Grid item xs={12} sm={6}>
           <TextField
-            id="select-currency"
+            id="product-face"
             select
             label="Product face"
-            value={productFaced}
             helperText="Please select product face"
             fullWidth
-            onChange={(e) => setProductFaced(e.target.value)}
+            value={watch('faced') || ''}
+            {...register('faced')}
           >
-            {faced.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
+            {productFaced.map((face) => (
+              <MenuItem key={face.value} value={face.value}>
+                {face.label}
               </MenuItem>
             ))}
           </TextField>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              ml: 3,
-              pt: 0,
-            }}
+
+
+          <Grid item xs={12} sm={6}>
+          <TextField
+            id="product-size"
+            select
+            label="Product size"
+            helperText="Please select product size"
+            fullWidth
+            {...register('size')}
+            value={watch('size') || ''}
           >
-            <FormControlLabel
-              label="21mm or 3/4"
-              control={
-                <Checkbox
-                  sx={{ mt: 0 }}
-                  checked={sizeThreeQuarter}
-                  onChange={(e) => {
-                    setSizeThreeQuarter(e.target.checked);
-                  }}
-                />
-              }
-            />
-            <FormControlLabel
-              label='48mm or 2"'
-              control={
-                <Checkbox
-                  sx={{ pt: 0, pb: 0 }}
-                  checked={sizeTwoInches}
-                  onChange={(e) => {
-                    setSizeTwoInches(e.target.checked);
-                  }}
-                />
-              }
-            />
-            <Typography variant="caption" color="info">
-              Please select product size
-            </Typography>
-          </Box>
+            {productSizes.map((size) => (
+              <MenuItem key={size.value} value={size.value}>
+                {size.label}
+              </MenuItem>
+            ))}
+          </TextField>
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <NumericFormat
+        <NumericFormat
             type="text"
             value={productQuantity}
+            fullWidth
             thousandsGroupStyle="thousand"
             thousandSeparator=","
             customInput={TextField}
-            suffix="m"
+            suffix="roll(s)"
             label="Quantity (in roll)"
             helperText="Please enter product quantity"
             onChange={(e) => setProductQuantity(e.target.value)}
           />
-          <Typography>200 meters / roll (roll * 200 = Y meters)</Typography>
+
+          <Typography variant='caption' fontWeight='bold'>
+            200 meters / roll 
+            ({Number(productQuantity.slice(0, -7)) * 200}) meters
+            </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
           <NumericFormat
             type="text"
-            value={productAmount}
+            fullWidth
+            value={productUnitprice}
             thousandsGroupStyle="thousand"
             thousandSeparator=","
             customInput={TextField}
             prefix="₦"
-            label="Amount"
-            helperText="Please enter product amount"
-            onChange={(e) => setProductAmount(e.target.value)}
+            label="Unit Price"
+            helperText="Please enter product unit price"
+            onChange={(e) => setProductUnitPrice(e.target.value)}
           />
         </Grid>
 
-        <Grid item xs={12}>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-            }}
+        <Grid item xs={12} sm={6}>
+      
+        
+          <TextField
+            id="payment-status"
+            select
+            label="Payment Status"
+            helperText="Please select payment status"
+            fullWidth
+            {...register('status')}
+            value={watch('status') || ''}
           >
-            <FormControlLabel
-              label="PAID"
-              control={
-                <Checkbox
-                  sx={{ mt: 0 }}
-                  checked={sizeThreeQuarter}
-                  onChange={(e) => {
-                    setSizeThreeQuarter(e.target.checked);
-                  }}
-                />
-              }
-            />
-            <FormControlLabel
-              label="UNPAID"
-              control={
-                <Checkbox
-                  sx={{ pt: 0, pb: 0 }}
-                  checked={sizeThreeQuarter}
-                  onChange={(e) => {
-                    setSizeThreeQuarter(e.target.checked);
-                  }}
-                />
-              }
-            />
-          </Box>
+            {paymentStatus.map((status, index) => (
+              <MenuItem key={index} value={status.value}>
+                {status.value}
+              </MenuItem>
+            ))}
+          </TextField>
+          
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
           <TextField
             id="comment"
-            name="comment"
             label="Comment"
-            value={comment}
             fullWidth
             variant="outlined"
             multiline
             maxRows={2}
-            onChange={(e) => setComment(e.target.value)}
+            value={watch('comment') || ''}
+            {...register('comment')}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+         {saleDto.length !== 0 ? <Grid item xs={12} sm={6}>
           <Typography
             variant="overline"
             display="block"
@@ -241,16 +182,18 @@ export const SalesForm = () => {
             gutterBottom
             sx={{ fontSize: 14, backgroundColor: 'lightgreen' }}
           >
-            [1]s Product Added
+            {saleDto.length} Product[s] Added
           </Typography>
-        </Grid>
+        </Grid> : null}
 
         <Grid item xs={12} sm={6}>
-          <Button variant="contained" onClick={() => {}}>
-            Add sale
+          <Button variant="contained" 
+          fullWidth onClick={() => {getFormValues()}}>
+            Add another product
           </Button>
         </Grid>
       </Grid>
-    </React.Fragment>
+      </form>
+    </Fragment>
   );
 };

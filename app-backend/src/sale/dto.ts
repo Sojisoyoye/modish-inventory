@@ -1,9 +1,9 @@
 export class SaleDto {
-  productName: string = '';
-  faced: string = '';
-  size: string = '';
-  amount: number = 0;
-  status: string = '';
-  comment: string = '';
-  quantity: number = 0;
+  productName = '';
+  faced = '';
+  size = '';
+  amount = 0;
+  status = '';
+  comment = '';
+  quantity = 0;
 }
