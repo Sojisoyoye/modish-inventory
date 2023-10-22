@@ -10,6 +10,7 @@ import { CreateSale } from './pages/create-sale';
 import Layout from './components/layout';
 import ProtectedRoute from './ProtectedRoutes';
 import { CreateProduct } from './pages/create-product';
+import { ProductsPage } from './pages/products-page';
 
 function App() {
   const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/product" element={<CreateProduct />} />
+          <Route path="/products" element={<ProductsPage />} />
           <Route path="/sale" element={<CreateSale />} />
           {/* <Route path="*" element={<ErrorPage />} /> */}
         </Route>

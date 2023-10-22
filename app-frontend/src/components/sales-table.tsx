@@ -125,7 +125,6 @@ export default function SaleTable() {
               <StyledTableRow key={row.id}>
                 <StyledTableCell align="right">
                   <Typography variant="subtitle1">
-                    {' '}
                     {row.id}
                   </Typography>
                 </StyledTableCell>

@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom';
 export const Dashboard = () => {
   const navigate = useNavigate();
 
-
   return (
     <Box sx={{ display: 'flex' }}>
       <Box
@@ -40,7 +39,8 @@ export const Dashboard = () => {
             }}}
             onClick={() => navigate('/sale')}
 
-          >Create Sale</Button>
+          >Create Sale
+          </Button>
             <Button 
             variant="contained" 
             sx={{ 
@@ -65,10 +65,8 @@ export const Dashboard = () => {
               </Paper>
             </Grid>
           </Grid>
-          {/* <Copyright sx={{ pt: 4 }} /> */}
         </Container>
       </Box>
     </Box>
-  // </ThemeProvider>
   );
 }

@@ -22,11 +22,13 @@ export class ProductService {
   }
 
   async createProduct(productDto: ProductDto) {
-    const productExist = await this.productRepository.findOneByOrFail({
+    const productExist = await this.productRepository.findOneBy({
       name: productDto.name,
       faced: productDto.faced,
       size: productDto.size,
     });
+
+    console.log('product exists', productExist);
 
     if (productExist) {
       throw new HttpException(

@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import styled from 'styled-components';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
 import IMAGES from '../images/images';
 import Cookie from "universal-cookie";
 
@@ -28,16 +27,25 @@ function Layout() {
      window.location.href = "/";
   };
 
+  const navigate = useNavigate();
+
   return (
-    // <Box sx={{ display: 'flex' }}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar position="static" color="transparent" elevation={0}>
         <Toolbar>
-          <Typography component="div" sx={{ flexGrow: 1 }}>
+          <Typography 
+          component="div" 
+          sx={{ flexGrow: 1 }} 
+          onClick={() => navigate('/dashboard')}
+          > 
             <StyledLogo src={IMAGES.modish_logo} alt="modish-logo" />
           </Typography>
           <Stack direction="row" spacing={2} alignItems="center">
+          <Button variant='text' onClick={() => navigate('/products')}>
+            Products
+            </Button>
+
             <Typography color="#7f7f7f">Username</Typography>
             <Divider
               orientation="vertical"
@@ -52,38 +60,23 @@ function Layout() {
           </Stack>
         </Toolbar>
       </AppBar>
-      {/* <Drawer
-        variant="permanent"
-        PaperProps={{
-          sx: {
-            top: 120,
-            border: 'none',
-            marginLeft: '60px',
-          },
-        }}
-      >
-        <Toolbar />
-        <Box>
-          <List>
-            {['Inbox', 'Starred'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      </Drawer> */}
-      <Box component="main">
-        <Outlet />
-      </Box>
-    </ThemeProvider>
-    // </Box>
 
+    <Box sx={{ display: 'flex' }}>
+      <Box
+      component="main"
+      sx={{
+        backgroundColor: (theme) => (theme.palette.mode === 'light'
+          ? theme.palette.grey[100]
+          : theme.palette.grey[900]),
+        flexGrow: 1,
+        height: '100vh',
+        overflow: 'auto',
+      }}
+      >
+        <Outlet />
+        </Box>
+    </Box>
+    </ThemeProvider>
   );
 }
 
@@ -93,36 +86,3 @@ const StyledLogo = styled.img`
 `;
 
 export default Layout;
-
-// export function MenuBar() {
-//   const navigate = useNavigate();
-
-//   return (
-//     <List>
-//       <ListItemButton>
-//         <ListItemIcon>
-//           {/* <DashboardIcon /> */}
-//         </ListItemIcon>
-//         <ListItemText primary="Dashboard" />
-//       </ListItemButton>
-//       <ListItemButton>
-//         <ListItemIcon>
-//           <ShoppingCartIcon />
-//         </ListItemIcon>
-//         <ListItemText primary="Sales" onClick={() => navigate('/sale')} />
-//       </ListItemButton>
-//       <ListItemButton>
-//         <ListItemIcon>
-//           <PeopleIcon />
-//         </ListItemIcon>
-//         <ListItemText primary="New Sale" />
-//       </ListItemButton>
-//       <ListItemButton>
-//         <ListItemIcon>
-//           <BarChartIcon />
-//         </ListItemIcon>
-//         <ListItemText primary="Products" />
-//       </ListItemButton>
-//     </List>
-//   );
-// }

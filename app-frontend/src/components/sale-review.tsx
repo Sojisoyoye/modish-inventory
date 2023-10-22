@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';

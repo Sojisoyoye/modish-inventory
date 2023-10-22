@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getProducts } from '../api/product'
 
 export const useProducts = () => {
-  const { data: productData } = useQuery(['products'], () => getProducts())
+  const { data: products } = useQuery(['products'], () => getProducts())
 
   let formData;
   const saveSaleFormData = (data: any) => {
@@ -11,7 +11,7 @@ export const useProducts = () => {
     return formData
   }
 
-  return { productData, formData, saveSaleFormData }
+  return { products, formData, saveSaleFormData }
 }
 
 

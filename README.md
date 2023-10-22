@@ -1,5 +1,25 @@
 # modish-inventory
 
+
+## To run the app
+
+*Backend*
+
+- cd into app-backend
+   run `docker-compose up`
+   
+- create .env file using the .env_sample format
+
+- To view db
+  view with pgadmin on http://localhost:8080/
+
+*Frontend*
+
+- cd into app-frontend
+   run `npm run dev`
+
+
+
 :**TODO**
 1. *Create history to show sales date change in stock and all.*
 2. *Validate that sale quantity can not be zero.*

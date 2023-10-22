@@ -9,7 +9,7 @@ import { paymentStatus, productFaced, productSizes } from '../constants';
 
 export const SalesForm = () => {
 
-  const { productData, saveSaleFormData } = useProducts();
+  const { products, saveSaleFormData } = useProducts();
 
   const { register, watch, getValues, handleSubmit, reset } = useForm<any>();
 
@@ -62,7 +62,7 @@ export const SalesForm = () => {
             value={watch('productName') || ''}
             {...register('productName')}
           >
-            {productData && productData.data.map((option: any) => (
+            {products && products.data.map((option: any) => (
               <MenuItem key={option.id} value={option.name}>
                 {option.name}
               </MenuItem>
