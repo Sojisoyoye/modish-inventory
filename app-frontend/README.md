@@ -4,8 +4,8 @@
 
 ### Pages
 
-- Landing page
-- Signin page
+- Landing page ✅
+- Signin page ✅
 - Dashboard page
 - Reset password page
 - Create sale page
@@ -22,7 +22,7 @@
 2. _User auth & management_
 
 - User can login ✅
-- User can log out
+- User can log out ✅
 - User can reset/change password
 
 3. _Dashboard_
@@ -38,7 +38,7 @@
 
 3. _Product_
 
-- Admin can create/add product
+- Admin can create/add product ✅
 - Admin can get a product
 - Admin can get all products
 - Admin can edit product

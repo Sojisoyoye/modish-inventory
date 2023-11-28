@@ -14,25 +14,17 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { productFaced, productSizes } from '../constants';
 import { ProductCreateDto, createProduct } from '../api/product';
+import { useAlert } from '../hooks/useAlert';
+import { useProducts } from '../hooks/useProducts';
 
 export const CreateProduct = () => {
 const navigate = useNavigate();
+const { createProductMutation } = useProducts();
 
- const { register, watch, handleSubmit } = useForm<any>();
+ const { register, watch, handleSubmit, reset } = useForm<any>();
 
  const [productQuantity, setProductQuantity] = useState<string>('');
  const [productUnitprice, setProductUnitPrice] = useState<string>('');
-
- const createProductMutation = useMutation({
-    mutationFn: (data) => createProduct(data),
-    onSuccess: (data) => {
-        // TODO: put success alert here
-        console.log('Product created successfully', data)
-    },
-    onError: () => {
-        // TODO: put error alert here
-    },
-  });
 
   const onSubmit = (data: any) => {
     const productDto: ProductCreateDto = {
@@ -40,7 +32,10 @@ const navigate = useNavigate();
         quantity: productQuantity.slice(0, -7),
         unitPrize: productUnitprice.substring(1).replace(/,/g, '')
     }
-    createProductMutation.mutate(productDto);
+    createProductMutation(productDto);
+    reset();
+    setProductQuantity('');
+    setProductUnitPrice('');
   }
 
   return (

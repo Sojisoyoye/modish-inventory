@@ -15,6 +15,7 @@ import styled from 'styled-components';
 import { Outlet, useNavigate } from 'react-router-dom';
 import IMAGES from '../images/images';
 import Cookie from "universal-cookie";
+import { AlertProvider } from '../hooks/useAlert';
 
 const cookies = new Cookie();
 
@@ -31,6 +32,7 @@ function Layout() {
 
   return (
     <ThemeProvider theme={theme}>
+      <AlertProvider>
       <CssBaseline />
       <AppBar position="static" color="transparent" elevation={0}>
         <Toolbar>
@@ -44,9 +46,8 @@ function Layout() {
           <Stack direction="row" spacing={2} alignItems="center">
           <Button variant='text' onClick={() => navigate('/products')}>
             Products
-            </Button>
-
-            <Typography color="#7f7f7f">Username</Typography>
+          </Button>
+          <Typography color="#7f7f7f">Username</Typography>
             <Divider
               orientation="vertical"
               variant="middle"
@@ -76,6 +77,7 @@ function Layout() {
         <Outlet />
         </Box>
     </Box>
+    </AlertProvider>
     </ThemeProvider>
   );
 }

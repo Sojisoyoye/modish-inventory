@@ -52,6 +52,6 @@
 - Admin can get users
 - Admin can get a user
 - Admin can delete/deactivate user
-- User can login
-- User can log out
+- User can login ✅
+- User can log out ✅
 - User can reset password
