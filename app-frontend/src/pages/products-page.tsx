@@ -49,8 +49,8 @@ export const ProductsPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.data &&
-              products.data.map((product: any) => (
+            {products &&
+              products.map((product: any) => (
                 <StyledTableRow key={product.id}>
                   <StyledTableCell>
                     <Typography variant="subtitle1">{product.name}</Typography>

@@ -164,7 +164,6 @@ export const CreateProduct = () => {
                     backgroundColor: '#000066',
                   },
                 }}
-                onClick={() => {}}
               >
                 Add Product
               </Button>

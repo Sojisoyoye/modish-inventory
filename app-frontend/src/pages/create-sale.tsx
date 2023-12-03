@@ -12,23 +12,25 @@ import {
   Stepper,
   Typography,
 } from '@mui/material'
-
-const createSaleSteps = ['Product details', 'Review your order']
-
-const getStepContent = (step: number) => {
-  switch (step) {
-    case 0:
-      return <SalesForm />
-    case 1:
-      return <SaleReview />
-    default:
-      throw new Error('Unknown step')
-  }
-}
+import { useStepper } from '../hooks/useStepper'
 
 export const CreateSale = () => {
   const navigate = useNavigate()
   const [activeStep, setActiveStep] = useState(0)
+  const { saveStepData } = useStepper()
+
+  const createSaleSteps = ['Product details', 'Review your order']
+
+  const getStepContent = (step: number) => {
+    switch (step) {
+      case 0:
+        return <SalesForm />
+      case 1:
+        return <SaleReview />
+      default:
+        throw new Error('Unknown step')
+    }
+  }
 
   const handleNext = () => {
     setActiveStep(activeStep + 1)

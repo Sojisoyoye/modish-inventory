@@ -40,10 +40,18 @@
 
 - Admin can create/add product ✅
 - Admin can get a product
-- Admin can get all products
+- Admin can get all products ✅
 - Admin can edit product
   - can add quantities to existing product
 - Admin can delete product.
+
+3. _Sales_
+
+- User can create/add sale (half done -> continue with API call and input validation)
+- User can get a sale
+- user can get all sales
+- User can edit sale
+- User can delete product.
 
 ### `npm run build`
 

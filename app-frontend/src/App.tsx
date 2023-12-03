@@ -5,33 +5,38 @@ import { SignIn } from './pages/signin'
 // import { Dashboard } from './pages/dashboard';
 import { Dashboard } from './pages/dashboard'
 import { LandingPage } from './pages/landing-page'
-import { CreateSale } from './pages/create-sale'
 import Layout from './components/layout'
 import ProtectedRoute from './ProtectedRoutes'
 import { CreateProduct } from './pages/create-product'
 import { ProductsPage } from './pages/products-page'
 import { ErrorPage } from './pages/Error/error'
 import { AuthProvider } from './hooks/useAuth'
+import { SalesForm } from './components/sales-form'
+import SaleReview from './components/sale-review'
+import { StepperProvider } from './hooks/useStepper'
 
 function App() {
   const queryClient = new QueryClient()
   return (
     <AuthProvider>
-      <QueryClientProvider client={queryClient}>
-        <Routes>
-          <Route index element={<LandingPage />} />
-          <Route path="/login" element={<SignIn />} />
-          <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<Layout />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/product" element={<CreateProduct />} />
-              <Route path="/products" element={<ProductsPage />} />
-              <Route path="/sale" element={<CreateSale />} />
-              <Route path="*" element={<ErrorPage />} />
+      <StepperProvider>
+        <QueryClientProvider client={queryClient}>
+          <Routes>
+            <Route index element={<LandingPage />} />
+            <Route path="/login" element={<SignIn />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/" element={<Layout />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/product" element={<CreateProduct />} />
+                <Route path="/products" element={<ProductsPage />} />
+                <Route path="/sale" element={<SalesForm />} />
+                <Route path="/sale-review" element={<SaleReview />} />
+                <Route path="*" element={<ErrorPage />} />
+              </Route>
             </Route>
-          </Route>
-        </Routes>
-      </QueryClientProvider>
+          </Routes>
+        </QueryClientProvider>
+      </StepperProvider>
     </AuthProvider>
   )
 }

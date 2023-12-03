@@ -7,13 +7,6 @@ export const useProducts = () => {
 
   const { data: products = [] } = useQuery(['products'], () => getProducts())
 
-  let formData
-  const saveSaleFormData = (data: any) => {
-    console.log('data from hook', data)
-    formData = data
-    return formData
-  }
-
   const createProductMutation = useMutation(
     (data: any) => createProduct(data),
     {
@@ -27,9 +20,7 @@ export const useProducts = () => {
   )
 
   return {
-    products,
-    formData,
-    saveSaleFormData,
+    products: products.data,
     createProductMutation: createProductMutation.mutate,
   }
 }
