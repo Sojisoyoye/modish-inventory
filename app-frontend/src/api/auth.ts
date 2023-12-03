@@ -5,7 +5,7 @@ import { poster } from '../apiCaller'
 export const signIn = async (userData: {
   userName: string
   password: string
-}) => {
+}): Promise<any> => {
   const url = '/api/auth/login'
   const res = await poster(url, userData)
 
@@ -15,15 +15,3 @@ export const signIn = async (userData: {
 
   return res
 }
-
-
-// export const signOut = async () => {
-//   const url = '/api/auth/logout';
-//   const res = await poster(url, {});
-
-//   if (res.statusCode !== 200) {
-//     throw new Error(res.message);
-//   }
-
-//   return res;
-// };

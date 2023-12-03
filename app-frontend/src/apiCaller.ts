@@ -1,19 +1,24 @@
-import Cookie from 'universal-cookie'
+const createHeaders = (method: string, dto?: any) => {
+  const token = sessionStorage.getItem('auth_token')
 
-const cookies = new Cookie()
-const token = cookies.get('TOKEN')
+  return {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(dto),
+  }
+}
 
-console.log('api token....', token)
-
-const getter = async (url: string, options?: any): Promise<any> => {
+const getter = (url: string, options?: any): Promise<any> => {
   if (!options) {
     options = createHeaders('GET')
   }
-// TODO: better response handling
-  const res = await fetch(url, options)
-  const res_1 = await res.text()
-  const res_2 = (res_1 ? JSON.parse(res_1) : {})
-  return res_2
+
+  return fetch(url, options)
+    .then((res) => res.text())
+    .then((res) => (res ? JSON.parse(res) : {}))
 }
 
 const poster = (url: string, dto: any) => {
@@ -31,14 +36,5 @@ const patcher = (url: string, dto: any) => {
 const deleter = (url: string, dto: any) => {
   return getter(url, createHeaders('DELETE', dto))
 }
-
-const createHeaders = (method: string, dto?: any) => ({
-  method,
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `bearer ${token}`,
-  },
-  body: JSON.stringify(dto),
-})
 
 export { getter, poster, puter, patcher, deleter }

@@ -1,21 +1,14 @@
-import React, { Fragment } from "react";
-import { Navigate,  Outlet } from "react-router-dom";
-import Cookie from "universal-cookie";
-
-const cookies = new Cookie();
+import React, { Fragment } from 'react'
+import { Navigate, Outlet } from 'react-router-dom'
 
 const ProtectedRoute = () => {
-  const token = cookies.get('TOKEN');
+  const token = sessionStorage.getItem('auth_token')
 
   return (
     <Fragment>
-        {
-            (token
-                ? <Outlet /> : 
-                  <Navigate to='/' replace />)
-          }
+      {!token ? <Navigate to="/login" replace /> : <Outlet />}
     </Fragment>
-  );
-};
+  )
+}
 
-export default ProtectedRoute;
+export default ProtectedRoute

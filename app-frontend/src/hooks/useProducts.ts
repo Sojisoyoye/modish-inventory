@@ -1,13 +1,13 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { createProduct, getProducts } from '../api/product'
-import { useAlert } from './useAlert';
+import { useAlert } from './useAlert'
 
 export const useProducts = () => {
-  const { success, error }  = useAlert();
+  const { success, error } = useAlert()
 
-  const { data: products } = useQuery(['products'], () => getProducts());
+  const { data: products = [] } = useQuery(['products'], () => getProducts())
 
-  let formData;
+  let formData
   const saveSaleFormData = (data: any) => {
     console.log('data from hook', data)
     formData = data
@@ -19,20 +19,17 @@ export const useProducts = () => {
     {
       onSuccess: (data) => {
         success('Product created successfully', 'Create product')
-       },
-       onError: (data) => {
-           error(data.message, 'Failed')
-           console.log('Product failed', data)
-       },
+      },
+      onError: (data: { status: string; message: string }) => {
+        error(data.message, 'Failed')
+      },
     }
-  );
+  )
 
-  return { 
-    products, 
-    formData, 
+  return {
+    products,
+    formData,
     saveSaleFormData,
-    createProductMutation: createProductMutation.mutate
-   }
+    createProductMutation: createProductMutation.mutate,
+  }
 }
-
-

@@ -1,5 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   Avatar,
   Button,
@@ -12,16 +11,16 @@ import {
   Link,
   TextField,
   Typography,
-} from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
-import Cookie from "universal-cookie";
-import { signIn } from '../api/auth';
+} from '@mui/material'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
+import { signIn } from '../api/auth'
+import { useAuth } from '../hooks/useAuth'
 
-const theme = createTheme();
+const theme = createTheme()
 
 type UserData = {
   userName: string
@@ -40,40 +39,33 @@ function Copyright(props: any) {
       <Link color="inherit" href="/" px={1}>
         Modish Standard Limited
       </Link>
-      {new Date().getFullYear()}
-      .
+      {new Date().getFullYear()}.
     </Typography>
-  );
+  )
 }
 
-const cookies = new Cookie();
-
 export function SignIn() {
-  const navigate = useNavigate();
-  const [loginError, setLoginError] = useState<string>('');
+  const navigate = useNavigate()
+  const [loginError, setLoginError] = useState<string>('')
+  const { login } = useAuth()
 
-  const {
-    register,
-    handleSubmit,
-  } = useForm<UserData>();
+  const { register, handleSubmit } = useForm<UserData>()
 
   const mutation = useMutation({
     mutationFn: (data: { userName: string; password: string }) => signIn(data),
     onSuccess: (data) => {
-      setLoginError('');
-      cookies.set("TOKEN", data.token, {
-        path: "/",
-      });
-      navigate('/dashboard');
+      setLoginError('')
+      login(data)
+      navigate('/dashboard')
     },
     onError: () => {
-      setLoginError('Wrong credentials provided');
+      setLoginError('Wrong credentials provided')
     },
-  });
+  })
 
   const onSubmit: SubmitHandler<UserData> = (data) => {
-    mutation.mutate(data);
-  };
+    mutation.mutate(data)
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -151,5 +143,5 @@ export function SignIn() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
-  );
+  )
 }
