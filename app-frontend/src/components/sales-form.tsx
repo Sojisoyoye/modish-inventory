@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react';
 import {
   Box,
   Button,
@@ -8,32 +8,32 @@ import {
   Paper,
   TextField,
   Typography,
-} from '@mui/material'
-import { NumericFormat } from 'react-number-format'
-import { useProducts } from '../hooks/useProducts'
-import { useForm } from 'react-hook-form'
-import { paymentStatus, productFaced, productSizes } from '../constants'
-import { useStepper } from '../hooks/useStepper'
-import { useNavigate } from 'react-router-dom'
+} from '@mui/material';
+import { NumericFormat } from 'react-number-format';
+import { useProducts } from '../hooks/useProducts';
+import { useForm } from 'react-hook-form';
+import { paymentStatus, productFaced, productSizes } from '../constants';
+import { useStepper } from '../hooks/useStepper';
+import { useNavigate } from 'react-router-dom';
 
 // type SalesFormType = {
 //   saveFormData: Function
 // }
 
 export class SaleDto {
-  'productName': string = ''
-  'faced': string = ''
-  'size': string = ''
-  'status': string = ''
-  'comment': string = ''
-  'quantity': string = ''
-  'amount': string = ''
+  'productName': string = '';
+  'faced': string = '';
+  'size': string = '';
+  'status': string = '';
+  'comment': string = '';
+  'quantity': string = '';
+  'amount': string = '';
 }
 
 export const SalesForm = () => {
-  const navigate = useNavigate()
-  const { products } = useProducts()
-  const { saveStepData } = useStepper()
+  const navigate = useNavigate();
+  const { products } = useProducts();
+  const { saveStepData } = useStepper();
 
   const {
     register,
@@ -49,49 +49,50 @@ export const SalesForm = () => {
       faced: '',
       size: '',
       status: '',
-      // comment: '',
-      // quantity: '',
-      // amount: '',
+      comment: '',
     },
-  })
+  });
 
-  const [productQuantity, setProductQuantity] = useState<string>('')
-  const [productUnitprice, setProductUnitPrice] = useState<string>('')
+  const [productQuantity, setProductQuantity] = useState<string>('');
+  const [productUnitprice, setProductUnitPrice] = useState<string>('');
+  const [isComplete, setIsComplete] = useState<boolean>(false);
 
-  const [saleDto, setSaleDto] = useState<SaleDto[]>([])
+  const [saleDto, setSaleDto] = useState<SaleDto[]>([]);
 
   const resetFormValues = () => {
-    reset()
-    setProductQuantity('')
-    setProductUnitPrice('')
-  }
+    reset();
+    setProductQuantity('');
+    setProductUnitPrice('');
+  };
+
+  const isFormComplete = (saleDto: SaleDto): boolean => {
+    if (Object.values(saleDto).includes('')) {
+      return false;
+    }
+    return true;
+  };
 
   const getFormValues = () => {
-    const formValues = getValues()
+    const formValues = getValues();
 
     const newSale = {
       ...formValues,
       quantity: productQuantity.slice(0, -7),
       amount: productUnitprice.substring(1).replace(/,/g, ''),
-    }
+    };
 
-    setSaleDto((prev) => [...prev, newSale])
-    console.log('SALE DTO', saleDto)
+    setIsComplete(isFormComplete(newSale));
 
-    resetFormValues()
-  }
+    setSaleDto((prev) => [...prev, newSale]);
+
+    resetFormValues();
+  };
 
   const onSubmit = () => {
-    saveStepData(saleDto)
-    resetFormValues()
-    navigate('/sale-review')
-  }
-
-  // const isFormValid = () => {
-  //   const { productName, faced, size, status, quantity, amount } = saleDto[0]
-
-  //   return productName && faced && size && status && quantity && amount
-  // }
+    saveStepData(saleDto);
+    resetFormValues();
+    navigate('/sale-review');
+  };
 
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
@@ -254,7 +255,7 @@ export const SalesForm = () => {
                   variant="contained"
                   fullWidth
                   onClick={() => getFormValues()}
-                  disabled={!isDirty && !isValid}
+                  disabled={!isComplete}
                 >
                   {saleDto.length ? 'Add another product' : 'Add Product'}
                 </Button>
@@ -279,5 +280,5 @@ export const SalesForm = () => {
         </Fragment>
       </Paper>
     </Container>
-  )
-}
+  );
+};

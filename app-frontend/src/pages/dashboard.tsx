@@ -1,5 +1,5 @@
-import React from 'react'
-import SaleTable from '../components/sales-table'
+import React from 'react';
+import SaleTable from '../components/sales-table';
 import {
   Box,
   Button,
@@ -8,11 +8,13 @@ import {
   Paper,
   Stack,
   Toolbar,
-} from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useSales } from '../hooks/useSales';
 
 export const Dashboard = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  // const { sales } = useSales();
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -66,12 +68,12 @@ export const Dashboard = () => {
                   flexDirection: 'column',
                 }}
               >
-                <SaleTable />
+                {/* <SaleTable sales={sales} /> */}
               </Paper>
             </Grid>
           </Grid>
         </Container>
       </Box>
     </Box>
-  )
-}
+  );
+};

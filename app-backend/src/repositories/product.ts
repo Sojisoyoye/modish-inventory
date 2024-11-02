@@ -1,16 +1,16 @@
-import { config } from "../config/database";
+import { config } from '../config/database';
 // import { CreateProductRequest } from "../controllers/product.controller";
-import { Product } from "../entities";
+import { Product } from '../entities';
 
 export class ProductDto {
-  name: string = "";
-  faced: string = "";
-  size: string = "";
-  quantity: number = 0;
-  unitPrize: number = 0;
-  totalAmount: number = 0;
-  amountSold: number = 0;
-  quantitySold: number = 0;
+  name = '';
+  faced = '';
+  size = '';
+  quantity = 0;
+  unitPrize = 0;
+  totalAmount = 0;
+  amountSold = 0;
+  quantitySold = 0;
   quantityLeft: number | undefined = 0;
 }
 
@@ -25,7 +25,7 @@ export const createProduct = async (dto: any): Promise<Product> => {
 
 export const updateProduct = async (
   id: number,
-  newProduct: any
+  newProduct: any,
 ): Promise<any> => {
   const productRepository = config.getRepository(Product);
   const updatedProduct = await productRepository.update(id, { ...newProduct });
@@ -48,7 +48,7 @@ export const getProduct = async (id: number): Promise<Product | null> => {
 export const getProductByNameSizeAndFaced = async (
   name: string,
   faced: string,
-  size: string
+  size: string,
 ): Promise<Product | null> => {
   const productRepository = config.getRepository(Product);
 
@@ -63,7 +63,7 @@ export const getProductByNameSizeAndFaced = async (
 };
 
 export const deleteProduct = async (
-  id: number
+  id: number,
 ): Promise<number | undefined | null> => {
   const productRepository = config.getRepository(Product);
 

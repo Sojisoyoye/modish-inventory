@@ -1,19 +1,19 @@
-import React from 'react'
-import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell, { tableCellClasses } from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
-import Box from '@mui/material/Box'
-import TableFooter from '@mui/material/TableFooter'
-import { useProducts } from '../hooks/useProducts'
-import { useStepper } from '../hooks/useStepper'
-import { Button, Container } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import TableFooter from '@mui/material/TableFooter';
+import { useProducts } from '../hooks/useProducts';
+import { useStepper } from '../hooks/useStepper';
+import { Button, Container } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const products = [
   {
@@ -32,7 +32,7 @@ const products = [
     price: '₦24,000',
     status: 'UNPAID',
   },
-]
+];
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -43,7 +43,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14,
     paddingLeft: 0,
   },
-}))
+}));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
@@ -53,14 +53,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:last-child td, &:last-child th': {
     // border: 0,
   },
-}))
+}));
 
 export default function SaleReview() {
-  const navigate = useNavigate()
-  const { data } = useStepper()
+  const navigate = useNavigate();
+  const { data } = useStepper();
 
   // FIXME: not working, find another way to receive the form data
-  console.log('Sale Data from context stepper>> ', data)
+  console.log('Sale Data from context stepper>> ', data);
 
   return (
     <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
@@ -170,5 +170,5 @@ export default function SaleReview() {
         </React.Fragment>
       </Paper>
     </Container>
-  )
+  );
 }

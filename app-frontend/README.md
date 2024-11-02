@@ -42,7 +42,7 @@
 - Admin can get a product
 - Admin can get all products ✅
 - Admin can edit product
-  - can add quantities to existing product
+- can add quantities to existing product
 - Admin can delete product.
 
 3. _Sales_

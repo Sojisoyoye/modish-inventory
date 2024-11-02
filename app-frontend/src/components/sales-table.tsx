@@ -23,7 +23,14 @@ function createData(
   status: string,
 ) {
   return {
-    id, date, name, faced, size, quantity, price, status,
+    id,
+    date,
+    name,
+    faced,
+    size,
+    quantity,
+    price,
+    status,
   };
 }
 
@@ -101,7 +108,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function SaleTable() {
+export default function SaleTable({ sales }) {
   return (
     <>
       <Typography variant="h6" sx={{ marginBottom: '40px' }}>
@@ -124,15 +131,10 @@ export default function SaleTable() {
             {rows.map((row) => (
               <StyledTableRow key={row.id}>
                 <StyledTableCell align="right">
-                  <Typography variant="subtitle1">
-                    {row.id}
-                  </Typography>
+                  <Typography variant="subtitle1">{row.id}</Typography>
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  <Typography variant="subtitle1">
-                    {' '}
-                    {row.date}
-                  </Typography>
+                  <Typography variant="subtitle1"> {row.date}</Typography>
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
                   <Box
@@ -152,10 +154,7 @@ export default function SaleTable() {
                   </Box>
                 </StyledTableCell>
                 <StyledTableCell>
-                  <Typography variant="subtitle1">
-                    {' '}
-                    {row.quantity}
-                  </Typography>
+                  <Typography variant="subtitle1"> {row.quantity}</Typography>
                 </StyledTableCell>
                 <StyledTableCell>
                   <Typography variant="subtitle1">{`$${row.price}`}</Typography>

@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { Product, Sale, User } from '../entities';
+// import { Product, Sale, User } from '../entities/';
 
 require('dotenv').config();
 
@@ -10,6 +10,8 @@ export const config = new DataSource({
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  entities: [User, Product, Sale],
+  entities: [__dirname + '../entities/*.entity{.ts, .js}'],
+  migrationsTableName: 'migration',
+  migrations: ['src/migration/*.ts'],
   synchronize: true,
 });

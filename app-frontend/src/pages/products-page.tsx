@@ -1,6 +1,6 @@
-import * as React from 'react'
-import { useProducts } from '../hooks/useProducts'
-import { useNavigate } from 'react-router-dom'
+import * as React from 'react';
+import { useProducts } from '../hooks/useProducts';
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   Container,
@@ -14,13 +14,13 @@ import {
   TableRow,
   Typography,
   tableCellClasses,
-} from '@mui/material'
-import { styled } from '@mui/material/styles'
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 export const ProductsPage = () => {
-  const { products } = useProducts()
+  const { products } = useProducts();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -94,8 +94,8 @@ export const ProductsPage = () => {
         </Table>
       </TableContainer>
     </Container>
-  )
-}
+  );
+};
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -106,7 +106,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14,
     paddingLeft: 0,
   },
-}))
+}));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
@@ -116,4 +116,4 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:last-child td, &:last-child th': {
     // border: 0,
   },
-}))
+}));
